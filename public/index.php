@@ -7,5 +7,6 @@
     use Silex\Application;
     $app = new Application();
     require __DIR__.'/../src/register.php';
+    require __DIR__.'/../src/function.php';
     require __DIR__.'/../src/route.php';
     $app->run();
