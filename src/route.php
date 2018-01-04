@@ -8,9 +8,25 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 //Request::setTrustedProxies(array('127.0.0.1'));
 
-$app->get('/', function () use ($app) {
+/*** Route Login ***/
+$app->get('/', function () use ($app) { // on mets toujours les pages get en premier, puis les pages en post
     return $app['twig']->render('basic/login.html.twig', array());
 });
+
+$app->post('/', function () use ($app) {
+    return $app['twig']->render('basic/login.html.twig', array());
+});
+
+/*** Route Register ***/
+$app->get('/register', function() use ($app){
+    return $app['twig']->render('basic/register.html.twig');
+});
+
+
+
+
+
+
 
 $app->error(function (\Exception $e, Request $request, $code) use ($app) {
     if ($app['debug']) {
