@@ -42,7 +42,7 @@ $app->post('/forgottenPassword', function() use ($app){ // traitement du formula
     
         //Recipients (qui est l'expéditeur)
         $mail->setFrom('eleve@lyknowledge.fr', 'Webforce3'); // l'adresse de l'expéditeur (nous). Le 2ème argument est un alias qui s'affichera dans le mail
-        $mail->addAddress('steph.wbf3@gmail.com', 'Un alias random'); // l'adresse du destinataire. + alias en 2ème arg
+        $mail->addAddress('steph.wbf3@gmail.com', 'Un alias'); // l'adresse du destinataire. + alias en 2ème arg (en général le nom)
         
         //Content
         $mail->isHTML(true);                                  // Set email format to HTML
