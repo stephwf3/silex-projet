@@ -5,7 +5,10 @@
     use Silex\Provider\TwigServiceProvider;
     use Silex\Provider\ServiceControllerServiceProvider;
     use Silex\Provider\HttpFragmentServiceProvider;
-    
+    use PHPMailer\PHPMailer\PHPMailer; // nécessaire pour envoyer des mails par phpmailer
+    use PHPMailer\PHPMailer\Exception; // nécessaire pour envoyer des mails par phpmailer
+
+
     $app->register(new ServiceControllerServiceProvider()); // Chargement des Controleur Provider
     $app->register(new AssetServiceProvider()); // Chargement de la gestion des Asset
     $app->register(new TwigServiceProvider()); // Chargement de Twig
@@ -17,3 +20,5 @@
     });
     $app['twig.path'] = array(__DIR__.'/../templates'); // Dossier des pages Twig
     // $app['twig.options'] = array('cache' => __DIR__.'/../var/cache/twig'); // Dossier des caches des pages Twig
+
+    $app["mail"] = new PHPMailer(true); // pour l'accès à PHPMailer depuis n'importe quelle page du site
