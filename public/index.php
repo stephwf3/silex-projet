@@ -8,5 +8,7 @@
     $app = new Application();
     require __DIR__.'/../src/register.php';
     require __DIR__.'/../src/function.php';
-    require __DIR__.'/../src/route.php';
+    require __DIR__.'/../src/middleware.php';
+    require __DIR__.'/../src/controller/IndexController.php';
+    require __DIR__.'/../src/route.php'; // on essaye de garder le require des routes à la fin de la liste
     $app->run();

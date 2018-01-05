@@ -35,27 +35,22 @@
 
     function register(array $user, $app) { 
 
-        if(!isset($user["email"]) || !isset($user["password"]) || !isset($user["username"])) {// si les variables n'existent pas...
-            return false;
+
+    }
+
+
+
+    function verifParam($request, $verifRequest = array()): array{
+
+        $error = false;
+        $messageError = "";
+
+        foreach($verifRequest as $key => $val) {
+            if( !$request->has($val) || trim($request->get($val)) == ""){ // si la $val n'existe pas et qu'elle est vide
+                $error = true;
+                $messageError .= " $val, ";
+            }           
         }
-
-        if(empty(trim($user["email"])) || empty(trim($user["password"])) || empty(trim($user["username"]))) {
-            return false;
-        }
-
-        // si tout va bien, on sécurise les infos...
-            $email = htmlspecialchars(trim($user["email"])); 
-            $password = strip_tags(trim($user["password"]));
-            $username = strip_tags(trim($user["username"]));
-
-        if(!filter_var($email, FILTER_VALIDATE_EMAIL)) { // si l'email n'est pas au bon format (verif de la syntaxe avec la fonction de la classe)
-            return false; // on redirige vers register
-        }
-
-        $app['db']->insert('user', array(
-            'username' => $username,
-            'email' =>  $email,
-            'password' => $password
-        ));
-
+        
+        return array("error" => $error, "message" => $messageError);
     }

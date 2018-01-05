@@ -30,5 +30,5 @@
     </form>
     <small>Already have an account?
     </small>
-    <a href="<?= HOSTURL ?>?page=login" class="signup">Login</a>
+    <a href="{{ path('login') }}" class="signup">Login</a> <!-- si on voulait faire passer des valeurs dans l'url en get, on pourrait faire { { path('login', {name : "maValeur"}) } } ce qui crérait une url de type /login?name=maValeur -->
 {% endblock %}
