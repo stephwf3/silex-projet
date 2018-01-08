@@ -6,6 +6,9 @@
 
     use Silex\Application;
     $app = new Application();
+    $app['debug'] = true; // a supprimer quand on met le projet sur le serveur (mode prod)
+
+
     require __DIR__.'/../src/register.php';
     require __DIR__.'/../src/function.php';
     require __DIR__.'/../src/middleware.php';

@@ -9,7 +9,7 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 //Request::setTrustedProxies(array('127.0.0.1'));
 
 
-/*** Route Login ***/
+/****************************** Route Login ***/
 $app->get('/', function () use ($app) { // on mets toujours les pages get en premier, puis les pages en post
     return $app['twig']->render('basic/login.html.twig', array());
 })->bind('login');
@@ -19,7 +19,7 @@ $app->post('/', function () use ($app) {
 });
 
 
-/*** Route Register ***/
+/***************************** Route Register ***/
 $app->get('/register', function() use ($app){
     return $app['twig']->render('basic/register.html.twig');
 })->bind('register');
@@ -28,7 +28,7 @@ $app->post('/register', 'Webforce\Controller\IndexController::registerAction');
 
 
 
-/*** Route forgottenPassword ***/
+/******************************* Route forgottenPassword ***/
 $app->get('/forgottenPassword', function() use ($app){
     return $app['twig']->render('basic/forgotten.html.twig');
 })->bind('forgotPassword'); // {{ path }} dans la view utilise le bind de la route pour appeler la page associée
@@ -37,6 +37,26 @@ $app->post('/forgottenPassword', function() use ($app){ // traitement du POST du
     sendMail('steph.wbf3@gmail.com', "Le message du mail en html", $app);
     return $app['twig']->render('basic/forgotten.html.twig'); // affichage de la page après envoi du mail
 });
+
+
+
+/**************************** Validate token email *********** */
+
+$app->get("/verif/{token}/", 'Webforce\Controller\IndexController::verifEmailAction');
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 /*** Route de test ***/

@@ -1,5 +1,5 @@
 <?php
- 
+
     namespace Webforce\Controller;
 
     use Silex\Application;
@@ -12,7 +12,7 @@
         }
 
         public function registerAction(Application $app, Request $request){
-            
+
             $email = htmlspecialchars(trim($request->request->get("email"))); 
             $password = strip_tags(trim($request->request->get("password")));
             $username = strip_tags(trim($request->request->get("username")));
@@ -46,4 +46,28 @@
             return $app['twig']->render('basic/register.html.twig');
         }
 
+
+        public function verifEmailAction(Application $app, Request $request) {
+
+            $token = strip_tags(trim($request->get("token")));
+
+            $sql = "SELECT user_id FROM token WHERE token = ? AND type LIKE 'email'"; // LIKE est équivalent au = quand on chercher des strings
+            $idUser = $app['db']->fetchAssoc($sql, array((string) $token));
+
+            if(!$idUser)
+                return $app['twig']->redirect('/phpoo/silex-projet/public/register');
+
+            $sql = "UPDATE user SET statuts = 'actif' WHERE id = ?";
+            $rowAffected = $app['db']->executeUpdate($sql, array((int) $idUser["user_id"]));
+
+            if($rowAffected == 1)
+                $app['db']->delete('token', array('token' => $token));
+
+            return $app->redirect('/phpoo/silex-projet/public/login');
+        }
+
+
     }
+
+
+
